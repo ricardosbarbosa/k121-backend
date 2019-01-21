@@ -1,36 +1,24 @@
 require("dotenv").config();
+const { PORT } = require("./constants");
 
 const express = require('express')
-const app = express()
 const cors = require("cors");
 
-//contants 
-const PORT = process.env.PORT || 3001;
-const HOSTNAME = process.env.HOSTNAME || "localhost";
-const DB_HOST = process.env.DB_HOST;
+const app = express();
 
 //middlewares
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json({ extended: true }));
-
 app.use(cors({ credentials: true })); 
 
-//routes 
-const pessoasRouter = require('./routers/pessoas')
-app.use("/pessoas", pessoasRouter);
+//routers 
+const { router: friendsRouter } = require("./sorteios");
+app.use("/sorteios", friendsRouter);
 
-//dicomove db
-const mongoose = require("mongoose");
-mongoose.Promisse = global.Promise;
-
-mongoose.connect(DB_HOST, { useNewUrlParser: true });
-var db = mongoose.connection;
-mongoose.set('useCreateIndex', true)
-
-db.on("error", (a, b) => console.log("connection error:", a, b));
-db.once("open", function () {
-  console.log("we're connected!");
+//database
+const onceOpen = require('./database')
+onceOpen(() => {
   app.listen(PORT, () => {
     console.log(`Listening http on ${PORT}...`);
   });
-});
+})
