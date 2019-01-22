@@ -12,13 +12,7 @@ app.use(express.json({ extended: true }));
 app.use(cors({ credentials: true })); 
 
 //routers 
-const { router: friendsRouter } = require("./sorteios");
-app.use("/sorteios", friendsRouter);
+const sorteioRouter = require("./sorteios/router");
+app.use("/sorteios", sorteioRouter);
 
-//database
-const onceOpen = require('./database')
-onceOpen(() => {
-  app.listen(PORT, () => {
-    console.log(`Listening http on ${PORT}...`);
-  });
-})
+module.exports = app

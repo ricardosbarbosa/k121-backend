@@ -1,7 +1,7 @@
 const findAll = async ({ Member }, req, res) => {
   try {
-    const friends = await Member.find({sorteio: req.params.id});
-    res.json(friends);
+    const members = await Member.find({sorteio: req.params.id});
+    res.json(members);
   } catch (error) {
     res.status(500).json({ error })
   }
@@ -9,9 +9,9 @@ const findAll = async ({ Member }, req, res) => {
 
 const create = async ({ Member }, req, res) => {
   try {
-    const friend = new Member({ ...req.body, hash: req.body.email });
-    await friend.save();
-    res.json(friend);
+    const member = new Member({ ...req.body, hash: req.body.email });
+    await member.save();
+    res.json(member);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error });
@@ -21,8 +21,8 @@ const create = async ({ Member }, req, res) => {
 const update = async ({ Member }, req, res) => {
   try {
     await Member.updateOne({ _id: req.params.id }, req.body, { new: true });
-    const friend = await Member.findOne({ _id: req.params.id });
-    res.status(200).json(friend)
+    const member = await Member.findOne({ _id: req.params.id });
+    res.status(200).json(member)
   } catch (error) {
     console.log(error)
     res.status(500).json({ error });

@@ -1,6 +1,6 @@
-const sorteio = require("./sorteio");
+const sorteio = require("./model");
 
-test("verify shuffle", () => {
+test("should shuffle array", () => {
   const arr = [1,2,3,4]
   const model = sorteio({mailgun: {}})
   const result = model.shuffle(arr)

@@ -1,18 +1,17 @@
 
 const express = require('express')
 const controller = require('./controller')
-const { Member } = require("../members");
+const Member = require("../members/member");
 const Sorteio = require("./model");
 const router = express.Router()
-const mailgun = require("./mailgun");
-const utils = require("./utils");
+
+const utils = require("../utils/index");
 const membersRouter = require("../members/router");
 
 const dependencies = {
   Member,
   Sorteio,
-  utils,
-  mailgun
+  utils
 };
 
 router.get("/", controller.findAll.bind(null, dependencies));
@@ -23,6 +22,7 @@ router.delete("/:id", controller.destroy.bind(null, dependencies));
 
 router.get("/:id/test", controller.test.bind(null, dependencies));
 router.post("/:id/result", controller.result.bind(null, dependencies));
+
 router.use("/:id/members", membersRouter);
 
 module.exports = router

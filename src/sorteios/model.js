@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-var utils = require('./utils')
+var utils = require('../utils/shuffle')
 
 Schema = mongoose.Schema;
 
