@@ -59,7 +59,7 @@ const test = async ({ Sorteio }, req, res) => {
   }
 };
 
-const result = async ({ Sorteio, utils}, req, res) => {
+const result = async ({ Sorteio, utils }, req, res) => {
   try {
     const sorteio = await Sorteio.findOne({ _id: req.params.id });
     const result = await sorteio.perform();
