@@ -1,8 +1,6 @@
 const findAll = async ({Sorteio}, req, res) => {
   try {
     const sorteios = await Sorteio.find({});
-    console.log(sorteios);
-    
     res.json(sorteios);
   } catch (error) {
     console.log(error);

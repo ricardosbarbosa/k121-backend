@@ -13,6 +13,8 @@ const MemberSchema = new mongoose.Schema({
   sorteio: { type: Schema.Types.ObjectId, ref: 'Sorteio' },
 });
 
+MemberSchema.index({ email: 1, sorteio: 1 }, { unique: true });
+
 MemberSchema.pre("find", function () {
   this.select("-__v -token");
 });
